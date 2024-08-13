@@ -1,0 +1,20 @@
+---
+
+- name: "CORE | FORCE-ROLES | Initialize fact core_force_roles"
+  set_fact:
+    core_force_roles: false
+  tags: always
+
+# Bedingung fuer das manuelle taggen und damit forcen
+- name: "CORE | FORCE-ROLES | Set fact core_force_roles if force-roles tag is called"
+  set_fact:
+    core_force_roles: true
+  tags: force-roles,never
+
+# Bedingung, solange die entsprechenden vm-provider noch keine images erzeugen und der std. rollout auf original images basiert
+- name: "CORE | FORCE-ROLES | Set fact core_force_roles if vm_provider is (vmware, hetzner)"
+  set_fact:
+    core_force_roles: true
+  when: ( vm_provider == "vmware" ) or ( vm_provider == "hetzner" )
+  tags: always
+  no_log: false

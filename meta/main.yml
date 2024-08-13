@@ -1,0 +1,13 @@
+---
+
+galaxy_info:
+  author: Sebastian Galenski
+  description: Core role for e.g. forcing, versioning and other useful helpers
+  company: BZ.medien Digital GmbH
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+    - name: Ubuntu
+    - name: Debian
+  galaxy_tags: []
+dependencies: []

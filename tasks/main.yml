@@ -1,0 +1,6 @@
+---
+
+- name: "CORE | Help"
+  debug:
+    msg:
+      - "Please use include_role with tasks_from attribute in your playbook!"

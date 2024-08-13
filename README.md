@@ -1,0 +1,3 @@
+# Role core
+
+Diese Rolle bringt globale Helper mit. Bspw. für die Versionierung oder das Forcing ...

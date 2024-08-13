@@ -1,0 +1,83 @@
+---
+
+
+# ########################
+# # Collect role metadata
+# ########################
+
+# - name: "CORE | Include vars from meta/.galaxy_install_info"
+#   include_vars:
+#     file: meta/.galaxy_install_info
+#     name: galaxy_install_info
+
+# - name: "CORE | Collect role informations"
+#   set_fact:
+#     role: "{{ [] | combine( {
+#                                 'name': ansible_parent_role_names.0,
+#                                 'version': galaxy_install_info.version,
+#                                 'last_execution_time': now(utc=true,fmt='%Y-%m-%d %H:%M:%S'),
+#                             } ) }}"
+
+# # - name: "CORE | Debug role metadata"
+# #   debug:
+# #     var: role
+
+
+
+# ########################
+# # Read remote state
+# ########################
+
+# - name: "CORE | Define remote role state file"
+#   set_fact:
+#     role_state_file: "/home/{{ ansible_user }}/ansible.role.{{ role.name }}"
+
+# - name: "CORE | Read remote role state file"
+#   shell: "cat {{ role_state_file }}"
+#   register: remoteFileContent
+#   ignore_errors: True
+#   changed_when: False
+
+# - name: "CORE | Fake role state content if file does not exists"
+#   set_fact:
+#     remoteFileContent:
+#       stdout: '{ "name":"unknown", "version": "unknown" }'
+#   when: remoteFileContent.failed
+
+# - name: "CORE | Convert role state content to dictionary"
+#   set_fact:
+#     remoteMeta: "{{ remoteFileContent.stdout | from_json }}"
+
+
+
+# ########################
+# # Calc execution state
+# ########################
+
+# - name: "CORE | Compare versions and Decide for execution or not"
+#   set_fact:
+#     doRoleExecution: "{{ role.version != remoteMeta.version }}"
+
+# # - name: "CORE | Debug execution decission"
+# #   debug:
+# #     msg: "Execute role => {{ doRoleExecution }}"
+# #   when: doRoleExecution is true
+
+# - name: "CORE | Write back new remote role state file"
+#   copy:
+#     dest: "{{ role_state_file }}"
+#     mode: "0644"
+#     content: "{{ role }}"
+#   when: doRoleExecution is true
+
+
+
+# ########################
+# # End
+# ########################
+
+# # - name: "CORE | Break the role execution"
+# #   fail:
+# #     msg: "Hm, wie kann man hier quasi die parent Rolle abbrechen, ohne das ganze Playbook abzubrechen"
+
+# # BIS JETZT IST ES HALT SO, DASS DIE doRoleExecution VARIABLE NACH OBEN GEREICHT WIRD UND DORT AUSGEWERTET WERDEN KANN
