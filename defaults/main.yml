@@ -6,6 +6,6 @@
 
 ### Default variables
 
-role_name: "ROLE-BASE"
+role_name: "ROLE-CORE"
 creationdate: "{{lookup('pipe','export TZ=Europe/Berlin ; date \"+%Y-%m-%d %H:%M:%S\"')}}"
 debug: false
