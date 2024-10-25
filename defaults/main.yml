@@ -1,1 +1,11 @@
 ---
+
+# role-core - role default
+# #######################################################
+
+
+### Default variables
+
+role_name: "ROLE-BASE"
+creationdate: "{{lookup('pipe','export TZ=Europe/Berlin ; date \"+%Y-%m-%d %H:%M:%S\"')}}"
+debug: false
